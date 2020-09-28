@@ -682,7 +682,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         if (vendor) {
             orgId = null;
         }
-        Errata toClone = ErrataFactoryTest.createTestPublishedErrata(orgId);
+        Errata toClone = ErrataFactoryTest.createTestErrata(orgId);
         toClone.addPackage(errataPack);
 
         ArrayList errata = new ArrayList();
@@ -748,7 +748,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         errata = TestUtils.reload(errata);
         assertNull(errata);
 
-        errata = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
+        errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         check = ErrataManager.lookupErrata(errata.getId(), user);
         assertTrue(check.getAdvisory().equals(errata.getAdvisory()));
         assertTrue(check.getId().equals(errata.getId()));
@@ -857,7 +857,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
      **/
     public void testPublishCustomErrata() throws Exception {
         // publish a custom errata
-        Errata e = ErrataFactoryTest.createTestPublishedErrata(admin.getOrg().getId());
+        Errata e = ErrataFactoryTest.createTestErrata(admin.getOrg().getId());
         Channel channel = ChannelFactoryTest.createBaseChannel(admin);
         channel.setOrg(admin.getOrg());
         ArrayList channels = new ArrayList();
@@ -874,7 +874,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
      **/
     public void testPublishVendorErrata() throws Exception {
         // publish a custom errata
-        Errata e = ErrataFactoryTest.createTestPublishedErrata(admin.getOrg().getId());
+        Errata e = ErrataFactoryTest.createTestErrata(admin.getOrg().getId());
         e.setOrg(null); // let the errata be a vendor one
         Channel channel = ChannelFactoryTest.createBaseChannel(admin);
         channel.setOrg(admin.getOrg());
@@ -894,10 +894,8 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
 
        assertTrue(earlyDate.before(laterDate));
 
-       Errata earlyErrata = ErrataFactoryTest.createTestPublishedErrata(
-               admin.getOrg().getId());
-       Errata laterErrata = ErrataFactoryTest.createTestPublishedErrata(
-               admin.getOrg().getId());
+       Errata earlyErrata = ErrataFactoryTest.createTestErrata(admin.getOrg().getId());
+       Errata laterErrata = ErrataFactoryTest.createTestErrata(admin.getOrg().getId());
 
        Channel testChannel  = ChannelFactoryTest.createTestChannel(admin);
 
