@@ -1,3 +1,4 @@
+- internal code cleanup (dropping unused table rhnErrataTmp)
 - show info message when applying schema upgrade
 - Fix: handle version comparison corner cases in Ubuntu packages
 

@@ -1,3 +1,4 @@
+- internal code cleanup (dropping unused table rhnErrataTmp)
 - prevent IntegrityError during mgr-inter-sync execution (bsc#1177235)
 
 -------------------------------------------------------------------
