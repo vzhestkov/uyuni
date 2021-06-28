@@ -92,6 +92,27 @@ class DebRepo:
         gpg_verify=True,
     ):
         self.url = url
+
+        # Handle non-flat repo with parent path specification.
+        # Example: https://pkg.jenkins.io/debian-stable/binary/../
+        # Release file is placed in https://pkg.jenkins.io/debian-stable/binary/
+        # But the root of the repo is calculated as https://pkg.jenkins.io/debian-stable/
+        parsed_url = urlparse.urlparse(url)
+        rpath = parsed_url.path.rstrip("/").split("/")
+        sback = 0
+        for i in reversed(rpath):
+            if ( i == ".." ):
+                sback += 1
+            else:
+                break
+        if sback:
+            rpath = rpath[:-(sback)]
+            parsed_url = parsed_url._replace(path="/".join(rpath))
+            self.url = urlparse.urlunparse(parsed_url)
+            rpath = rpath[:-(sback)]
+            parsed_url = parsed_url._replace(path="/".join(rpath))
+            url = urlparse.urlunparse(parsed_url)
+
         parts = url.rsplit('/dists/', 1)
         self.base_url = [parts[0]]
         # Make sure baseurl ends with / and urljoin will work correctly

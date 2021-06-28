@@ -1,3 +1,4 @@
+- Non-flat Debian repositories handling improved
 - Check if batch needs to be imported even after failure (bsc#1183151)
 
 -------------------------------------------------------------------
